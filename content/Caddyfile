@@ -1,5 +1,5 @@
 :{env.PORT} {
-    handle_path {env.SecretPATH}/vm* {
+    handle_path /{env.SecretPATH}/vm* {
         @websocket {
             header Connection *Upgrade*
             header Upgrade websocket
@@ -12,7 +12,7 @@
         }
         respond * 401
     }
-    handle_path {env.SecretPATH}/wgvm* {
+    handle_path /{env.SecretPATH}/wgvm* {
         @websocket-wgvm {
             header Connection *Upgrade*
             header Upgrade websocket
@@ -25,7 +25,7 @@
         }
         respond * 401
     }
-    handle_path {env.SecretPATH}/tr* {
+    handle_path /{env.SecretPATH}/tr* {
         @http-req {
             header X-Forwarded-Proto http
         }
@@ -42,7 +42,7 @@
         }
         respond * 401
     }
-    handle_path {env.SecretPATH}/wgtr* {
+    handle_path /{env.SecretPATH}/wgtr* {
         @http-req {
             header X-Forwarded-Proto http
         }
@@ -59,12 +59,12 @@
         }
         respond * 401
     }
-    handle_path {env.SecretPATH}/api* {
+    handle_path /{env.SecretPATH}/api* {
         @http-req {
             header X-Forwarded-Proto http
         }
         redir @http-req https://{host}{uri}
-        uri strip_prefix {env.SecretPATH}/api
+        uri strip_prefix /{env.SecretPATH}/api
         reverse_proxy * localhost:61804
     }
 }
